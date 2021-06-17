@@ -1,23 +1,17 @@
 package com.example.demo.controller;
 
 
-import com.example.demo.bean.Student;
 import com.example.demo.bean.Sysuser;
 import com.example.demo.service.ISysuserService;
-import com.example.demo.service.impl.StudentServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author astupidcoder
@@ -36,25 +30,54 @@ public class SysuserController {
     }
 
     @PostMapping("/getAllSysuser")
-    public List<Sysuser> getAllStudent(){
+    public List<Sysuser> getAllStudent() {
         return sysuserService.list();
     }
 
     @GetMapping("/test")
-    public String test(){
+    public String test() {
         try {
             sysuserService.addSysuserSyncUIM();
         } catch (Exception e) {
-            logger.error("操作员控制层出问题了",e);
+            logger.error("操作员控制层出问题了", e);
         }
         return "";
     }
-    
+
     @GetMapping("/testOrderby")
-    public String testOrderby(){
+    public String testOrderby() {
         List<Sysuser> list = sysuserService.testOrderby();
         System.out.println(list.size());
         return "查询完毕";
+    }
+
+    /*@PostMapping("/addSysuser")
+    public String addSysuser(@RequestBody Sysuser sysuser) {
+        if (!sysuserService.keepUnique(sysuser.getUserId())){
+            return "插入失败";
+        }
+        boolean b;
+        try {
+            b = sysuserService.save(sysuser);
+        } catch (Exception e) {
+            logger.error("插入报错了", e);
+            return "插入报错了";
+        }
+        return b ? "插入成功" : "插入失败";
+    }*/
+
+
+    @PostMapping("/addSysuser")
+    public String addSysuser(@RequestBody Sysuser sysuser) {
+        
+        boolean b;
+        try {
+            b = sysuserService.insertUnique(sysuser);
+        } catch (Exception e) {
+            logger.error("插入报错了", e);
+            return "插入报错了";
+        }
+        return b ? "插入成功" : "插入失败";
     }
 
 }

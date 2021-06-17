@@ -19,4 +19,8 @@ public interface ISysuserService extends IService<Sysuser> {
     boolean addSysuserSyncUIM() throws Exception;
 
     List<Sysuser> testOrderby();
+    
+    boolean keepUnique(String userId);
+
+    boolean insertUnique(Sysuser sysuser);
 }

@@ -1,5 +1,6 @@
 package com.example.demo.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.demo.bean.Student;
 import com.example.demo.bean.Sysuser;
@@ -8,10 +9,13 @@ import com.example.demo.service.ISysuserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 /**
@@ -61,6 +65,33 @@ public class SysuserServiceImpl extends ServiceImpl<SysuserMapper, Sysuser> impl
         List<Sysuser> list2 = sysuserMapper.testOrderby(page);
         int i = 0;
         return sysuserMapper.testOrderby(page);
+    }
+
+    @Override
+    public boolean keepUnique(String userId) {
+
+        boolean result = false;
+        try {
+            result = sysuserMapper.keepUnique(userId);
+        } catch (DuplicateKeyException e) {
+            logger.error("违反完整唯一性约束，异常DuplicateKeyException，userId为" + userId);
+        } catch (Throwable throwable){
+            logger.error("报错了",throwable);
+        }
+        return result;
+    }
+
+    @Override
+    public boolean insertUnique(Sysuser sysuser) {
+        boolean result = false;
+        try {
+            result = sysuserMapper.insertUnique(sysuser);
+        } catch (DuplicateKeyException e) {
+            logger.error("违反完整唯一性约束，异常DuplicateKeyException，{}", JSONObject.toJSONString(sysuser));
+        } catch (Throwable throwable){
+            logger.error("报错了",throwable);
+        }
+        return result;
     }
 
 }

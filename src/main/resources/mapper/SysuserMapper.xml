@@ -3,6 +3,15 @@
 
 <mapper namespace="com.example.demo.mapper.SysuserMapper">
 
+    <insert id="keepUnique">
+        INSERT INTO SYSUSERID(USERID) VALUE (#{USERID})
+    </insert>
+
+    <insert id="insertUnique">
+        INSERT INTO SYSUSER(ORDERNO,USERNAME,USERID) 
+        SELECT #{sysuser.orderNo},#{sysuser.userName},#{sysuser.userId} FROM DUAL WHERE #{sysuser.userId} NOT IN (SELECT USERID FROM SYSUSER);
+    </insert>
+
 
     <select id="testOrderby" resultType="com.example.demo.bean.Sysuser">
         

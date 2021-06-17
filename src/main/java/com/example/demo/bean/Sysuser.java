@@ -32,5 +32,6 @@ public class Sysuser extends Model {
     @TableField("orderNo")
     private Integer orderNo;
 
-
+    @TableField("userId")
+    private String userId;
 }
