@@ -3,11 +3,17 @@ package com.example.demo.controller;
 
 import com.example.demo.bean.Sysuser;
 import com.example.demo.service.ISysuserService;
+import org.redisson.Redisson;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
+import org.redisson.config.Config;
+import org.redisson.config.SingleServerConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
@@ -51,6 +57,36 @@ public class SysuserController {
         return "查询完毕";
     }
 
+    @PostMapping("/addSysuser")
+    public String addSysuser(@RequestBody Sysuser sysuser) {
+        Config config = new Config();
+        config.useSingleServer().setAddress("redis://192.168.3.176:6379").setPassword("123456").setTimeout(3310000).setConnectTimeout(3330000);
+        RedissonClient redissonClient = Redisson.create(config);
+        RLock rLock = redissonClient.getLock("lock1");
+        
+        boolean b;
+        try {
+            if (!rLock.tryLock(100, TimeUnit.SECONDS)){
+                return "请稍等，正在处理";
+            }
+            b = sysuserService.save(sysuser);
+            Thread.sleep(3000);
+            rLock.unlock();
+        } catch (Exception e) {
+            logger.error("插入报错了", e);
+            return "插入报错了";
+        }
+        return b ? "插入成功" : "插入失败";
+    }
+
+    public static void main(String[] args) {
+        Config config = new Config();
+        config.useSingleServer().setAddress("redis://192.168.3.176:6379").setPassword("123456");
+        RedissonClient redissonClient = Redisson.create(config);
+        RLock rLock = redissonClient.getLock("lock1");
+        rLock.lock();
+    }
+    
     /*@PostMapping("/addSysuser")
     public String addSysuser(@RequestBody Sysuser sysuser) {
         if (!sysuserService.keepUnique(sysuser.getUserId())){
@@ -67,7 +103,7 @@ public class SysuserController {
     }*/
 
 
-    @PostMapping("/addSysuser")
+    /*@PostMapping("/addSysuser")
     public String addSysuser(@RequestBody Sysuser sysuser) {
         
         boolean b;
@@ -78,6 +114,6 @@ public class SysuserController {
             return "插入报错了";
         }
         return b ? "插入成功" : "插入失败";
-    }
+    }*/
 
 }
