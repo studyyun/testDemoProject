@@ -7,13 +7,12 @@ import org.redisson.Redisson;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
-import org.redisson.config.SingleServerConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
+import redis.clients.jedis.Jedis;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
@@ -57,13 +56,26 @@ public class SysuserController {
         return "查询完毕";
     }
 
+
+    //rpush fruit k1 k2 k3 k4 k5 k6 k7 k8 k9 k10 k11 k12 k13 k14 k15 k16 k17 k18 k19 k20
     @PostMapping("/addSysuser")
+    public String addSysuser(@RequestBody Sysuser sysuser) {
+
+        Jedis jedis = new Jedis("192.168.3.129",6379);
+        String fruit = jedis.lpop("fruit");
+        System.out.println(fruit);
+
+        return "fruit";
+
+    }
+
+    /*@PostMapping("/addSysuser")
     public String addSysuser(@RequestBody Sysuser sysuser) {
         Config config = new Config();
         config.useSingleServer().setAddress("redis://192.168.3.176:6379").setPassword("123456").setTimeout(3310000).setConnectTimeout(3330000);
         RedissonClient redissonClient = Redisson.create(config);
         RLock rLock = redissonClient.getLock("lock1");
-        
+
         boolean b;
         try {
             if (!rLock.tryLock(100, TimeUnit.SECONDS)){
@@ -77,7 +89,7 @@ public class SysuserController {
             return "插入报错了";
         }
         return b ? "插入成功" : "插入失败";
-    }
+    }*/
 
     public static void main(String[] args) {
         Config config = new Config();
@@ -86,7 +98,7 @@ public class SysuserController {
         RLock rLock = redissonClient.getLock("lock1");
         rLock.lock();
     }
-    
+
     /*@PostMapping("/addSysuser")
     public String addSysuser(@RequestBody Sysuser sysuser) {
         if (!sysuserService.keepUnique(sysuser.getUserId())){
@@ -105,7 +117,7 @@ public class SysuserController {
 
     /*@PostMapping("/addSysuser")
     public String addSysuser(@RequestBody Sysuser sysuser) {
-        
+
         boolean b;
         try {
             b = sysuserService.insertUnique(sysuser);
