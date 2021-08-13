@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.LfMonDboprMapper">
+
+
+    <update id="updateRealTime">
+        UPDATE LF_MON_DBOPR 
+        SET PROCENODE = #{proceNode}, CREATETIME = CURRENT_TIMESTAMP(), 
+        WHERE ID= #{version}
+    </update>
+
+    <select id="selectVersion" resultType="java.lang.Integer">
+        SELECT MAX(ID) FROM LF_MON_DBOPR
+    </select>
+</mapper>

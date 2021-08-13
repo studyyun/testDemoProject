@@ -2,18 +2,26 @@ package com.example.demo.controller;
 
 
 import com.example.demo.bean.Sysuser;
+import com.example.demo.service.IStudentService;
 import com.example.demo.service.ISysuserService;
+import com.example.demo.service.impl.TestService;
 import org.redisson.Redisson;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
-import org.redisson.config.SingleServerConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * <p>
@@ -29,10 +37,50 @@ public class SysuserController {
 
     private static final Logger logger = LoggerFactory.getLogger(SysuserController.class);
 
-    private final ISysuserService sysuserService;
+    private ISysuserService sysuserService;
+    private Set<ISysuserService> sysuserServiceSet;
+    private Map<String, ISysuserService> sysuserServiceMap;
 
+    @Autowired
+    private ISysuserService[] iSysuserServices;
+    
+    @Autowired
+    private IStudentService iStudentService;
+
+    private final ApplicationContext applicationContext;
+
+    public SysuserController(ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
+    }
+
+    @Autowired
+    public void test(@Qualifier("sysuserServiceImpl_Two") ISysuserService sysuserService) {
+        this.sysuserService = sysuserService;
+    }
+
+    @Autowired
+    public void testSet(Set<ISysuserService> sysuserService) {
+        this.sysuserServiceSet = sysuserService;
+    }
+
+    @Autowired
+    public void testMap(Map<String, ISysuserService> sysuserService) {
+        this.sysuserServiceMap = sysuserService;
+    }
+
+    @Autowired(required = false)
+    public void setiStudentService(IStudentService iStudentService) {
+        this.iStudentService = iStudentService;
+    }
+    
+    /*
     public SysuserController(ISysuserService sysuserService) {
         this.sysuserService = sysuserService;
+    }*/
+    
+    @Autowired
+    public void setTestService(@Qualifier("public") TestService test){
+        
     }
 
     @PostMapping("/getAllSysuser")
@@ -57,7 +105,46 @@ public class SysuserController {
         return "查询完毕";
     }
 
-    @PostMapping("/addSysuser")
+    @GetMapping("/addSysuser")
+    public String addSysuser() {
+
+        /*Config config = new Config();
+        String cluster = "192.169.1.68:7001,192.169.1.68:7002,192.169.1.68:7003,192.169.1.68:7004,192.169.1.68:7005,192.169.1.68:7006";
+        String[] nodes = cluster.split(",");
+        //redisson版本是3.5，集群的ip前面要加上“redis://”，不然会报错，3.2版本可不加
+        for (int i = 0; i < nodes.length; i++) {
+            nodes[i] = "redis://" + nodes[i];
+        }
+        config.useClusterServers().addNodeAddress(nodes)//设置集群状态扫描时间2000
+                .setScanInterval(2000)
+                .addNodeAddress(nodes)
+//                    .setPassword(password)
+                .setMasterConnectionPoolSize(1000)
+                //最小空闲连接
+                .setMasterConnectionMinimumIdleSize(0);
+        RedissonClient redissonClient = Redisson.create(config);
+        RList<Object> testList = redissonClient.getList("testList");*/
+
+        /*Set<HostAndPort> nodes = new HashSet<>();
+        nodes.add(new HostAndPort("192.169.1.68", 7001));
+        nodes.add(new HostAndPort("192.169.1.68", 7002));
+        nodes.add(new HostAndPort("192.169.1.68", 7003));
+        nodes.add(new HostAndPort("192.169.1.68", 7004));
+        nodes.add(new HostAndPort("192.169.1.68", 7005));
+        nodes.add(new HostAndPort("192.169.1.68", 7006));
+        JedisCluster cluster = new JedisCluster(nodes);
+        String result = cluster.lpop("testList");
+        System.out.println(result);
+        return result;*/
+
+//        iStudentService.testSetterDi();
+        Object paginationInterceptor = applicationContext.getBean("paginationInterceptor");
+        ISysuserService iSysuserService = applicationContext.getBean("sysuserServiceImpl_Two", ISysuserService.class);
+        iStudentService.getAllStudent();
+        return "true";
+    }
+    
+    /*@PostMapping("/addSysuser")
     public String addSysuser(@RequestBody Sysuser sysuser) {
         Config config = new Config();
         config.useSingleServer().setAddress("redis://192.168.3.176:6379").setPassword("123456").setTimeout(3310000).setConnectTimeout(3330000);
@@ -77,7 +164,7 @@ public class SysuserController {
             return "插入报错了";
         }
         return b ? "插入成功" : "插入失败";
-    }
+    }*/
 
     public static void main(String[] args) {
         Config config = new Config();

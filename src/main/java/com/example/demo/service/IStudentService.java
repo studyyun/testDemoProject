@@ -19,4 +19,7 @@ public interface IStudentService extends IService<Student> {
     List<Student> getAllStudent();
 
     void testTransactional() throws Exception;
+    
+    void testSetterDi();
+    
 }

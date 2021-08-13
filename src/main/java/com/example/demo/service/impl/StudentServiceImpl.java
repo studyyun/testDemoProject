@@ -9,6 +9,9 @@ import com.example.demo.service.IStudentService;
 import com.example.demo.service.ISysuserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionInterceptor;
@@ -33,13 +36,17 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
 
     private final StudentMapper studentMapper;
 
-    private final ISysuserService iSysuserService;
+    private ISysuserService iSysuserService;
 
     private final SysuserMapper sysuserMapper;
-
-    public StudentServiceImpl(StudentMapper studentMapper, ISysuserService iSysuserService, SysuserMapper sysuserMapper) {
-        this.studentMapper = studentMapper;
+    
+    @Autowired
+    public void setiSysuserService(@Qualifier("sysuserServiceImpl") ISysuserService iSysuserService){
         this.iSysuserService = iSysuserService;
+    }
+    
+    public StudentServiceImpl(StudentMapper studentMapper, SysuserMapper sysuserMapper) {
+        this.studentMapper = studentMapper;
         this.sysuserMapper = sysuserMapper;
     }
 
@@ -59,6 +66,11 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         syncUIMSearch();
         add();
 //        int i = 1/0;
+    }
+
+    @Override
+    public void testSetterDi() {
+        iSysuserService.testSetDI();
     }
 
     public void delEmployee(){
@@ -120,6 +132,8 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         }*/
 //        return true;
     }
+    
+    
 
 
 }

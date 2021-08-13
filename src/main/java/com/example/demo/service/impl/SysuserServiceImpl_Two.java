@@ -2,25 +2,20 @@ package com.example.demo.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.example.demo.bean.Student;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.demo.bean.Sysuser;
 import com.example.demo.mapper.SysuserMapper;
 import com.example.demo.service.IStudentService;
 import com.example.demo.service.ISysuserService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Primary;
 import org.springframework.core.annotation.Order;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 /**
@@ -33,10 +28,10 @@ import java.util.List;
  */
 @Service
 @Transactional
-@Order(50)
-public class SysuserServiceImpl extends ServiceImpl<SysuserMapper, Sysuser> implements ISysuserService {
+@Order(100)
+public class SysuserServiceImpl_Two extends ServiceImpl<SysuserMapper, Sysuser> implements ISysuserService {
 
-    private static final Logger logger = LoggerFactory.getLogger(SysuserServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(SysuserServiceImpl_Two.class);
 
     private final SysuserMapper sysuserMapper;
     
@@ -47,7 +42,7 @@ public class SysuserServiceImpl extends ServiceImpl<SysuserMapper, Sysuser> impl
         this.iStudentService = iStudentService;
     }
 
-    public SysuserServiceImpl(SysuserMapper sysuserMapper) {
+    public SysuserServiceImpl_Two(SysuserMapper sysuserMapper) {
         this.sysuserMapper = sysuserMapper;
 //        this.iStudentService = iStudentService;
     }

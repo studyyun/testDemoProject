@@ -23,4 +23,6 @@ public interface ISysuserService extends IService<Sysuser> {
     boolean keepUnique(String userId);
 
     boolean insertUnique(Sysuser sysuser);
+    
+    void testSetDI();
 }

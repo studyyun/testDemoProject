@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
 
+import com.example.demo.bean.LfMonDbopr;
 import com.example.demo.bean.Student;
+import com.example.demo.service.ILfMonDboprService;
 import com.example.demo.service.IStudentService;
 import com.example.demo.service.impl.StudentServiceImpl;
 import org.slf4j.Logger;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -28,12 +31,16 @@ import java.util.List;
 public class StudentController {
 
     private static final Logger logger = LoggerFactory.getLogger(StudentController.class);
+    
+    @Autowired(required = false)
+    private IStudentService studentService;
+    
+    private ILfMonDboprService lfMonDboprService;
 
-    private final IStudentService studentService;
-
-    public StudentController(IStudentService studentService) {
-        this.studentService = studentService;
+    public StudentController(ILfMonDboprService lfMonDboprService) {
+        this.lfMonDboprService = lfMonDboprService;
     }
+
 
     @PostMapping("/getStudent")
     public Student getStudent(){
@@ -55,6 +62,7 @@ public class StudentController {
         }
         return "";
     }
+
 
 
 }
