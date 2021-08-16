@@ -171,6 +171,17 @@
                 </configuration>
             </plugin>
         </plugins>
+
+        <!--maven默认是不编译xml文件的，所以需要手动把java目录下的xml文件编译进去-->
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
     </build>
 
 </project>
