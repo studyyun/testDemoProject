@@ -3,9 +3,18 @@
 
 <mapper namespace="com.example.demo.mapper.StudentMapper">
 
+    <resultMap id="xxx" type="com.example.demo.bean.Student">
+        <id column="id" property="id"></id>
+        <result column="age" property="age"></result>
+    </resultMap>
+
     <!-- 查找用户信息 -->
     <select id="findAllUser" resultType="com.example.demo.bean.Student">
        select * from student
+    </select>
+
+    <select id="findOtherUser" resultMap="xxx">
+       select * from student where id = #{id}
     </select>
 
 </mapper>

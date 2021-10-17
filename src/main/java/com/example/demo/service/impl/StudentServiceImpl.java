@@ -11,12 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionInterceptor;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -39,12 +36,12 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     private ISysuserService iSysuserService;
 
     private final SysuserMapper sysuserMapper;
-    
+
     @Autowired
     public void setiSysuserService(@Qualifier("sysuserServiceImpl") ISysuserService iSysuserService){
         this.iSysuserService = iSysuserService;
     }
-    
+
     public StudentServiceImpl(StudentMapper studentMapper, SysuserMapper sysuserMapper) {
         this.studentMapper = studentMapper;
         this.sysuserMapper = sysuserMapper;
@@ -74,14 +71,14 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     }
 
     public void delEmployee(){
-        Student student = new Student().setId(1).setAddress("123").setAge(10).setName("111");
+        Student student = null;
         studentMapper.updateById(student);
     }
 
 //    @Transactional(rollbackFor = NullPointerException.class)
     private void syncUIMSearch(){
         try {
-            Student student = new Student().setId(1).setAddress("123").setAge(10).setName("222");
+            Student student = null;
             studentMapper.updateById(student);
 //            throw new IOException("222");
             /*int[] ints = new int[2];
@@ -95,7 +92,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
 
     @Transactional(rollbackFor = Exception.class)
     public void add() throws Exception {
-        Student student = new Student().setId(1).setAddress("123").setAge(10).setName("333");
+        Student student = null;
         studentMapper.updateById(student);
         logger.info("执行到test2");
 
@@ -132,8 +129,8 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         }*/
 //        return true;
     }
-    
-    
+
+
 
 
 }

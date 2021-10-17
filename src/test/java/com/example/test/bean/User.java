@@ -20,6 +20,16 @@ public class User {
     private Students students;
 
     private List<Students> studentsList;
+    
+    private String message;
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
     public Students getStudents() {
         return students;

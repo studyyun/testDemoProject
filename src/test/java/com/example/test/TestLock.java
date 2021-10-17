@@ -1,5 +1,7 @@
 package com.example.test;
 
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -42,10 +44,31 @@ public class TestLock {
     }
 
     public static void main(String[] args) {
+        Lock lock = new ReentrantLock();
         try {
-            new TestLock().test();
+//            new TestLock().test();
+            
+            lock.lock();
+            Condition condition = lock.newCondition();
+            new Thread(()->{
+                try {
+                    lock.lock();
+                    System.out.println(Thread.currentThread().getName());
+                    TimeUnit.SECONDS.sleep(2);
+                    condition.signal();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    lock.unlock();
+                }
+            }).start();
+            boolean await = condition.await(5, TimeUnit.SECONDS);
+            System.out.println(await);
+
         } catch (Exception e) {
-            System.out.println("中断异常");
+            e.printStackTrace();
+        } finally {
+            lock.unlock();
         }
     }
 

@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -74,7 +73,7 @@ public class TestController {
 //        System.out.println("333");
         return "redirect:/index.html";
     }
-    
+
     @PostMapping("/test/moPush")
     @ResponseBody
     public MoPushResult testMoPush(@RequestBody MoPushRequestData requestData){
@@ -87,7 +86,7 @@ public class TestController {
         }
 
     }
-    
+
     @GetMapping("/testSpeed")
     @ResponseBody
     public SendResultVo testSpeed(){
@@ -106,12 +105,18 @@ public class TestController {
         }
         return new SendResultVo();
     }
-    
+
+    @GetMapping("/pay")
+    public String pay(@RequestParam String phone, @RequestParam String money, @RequestParam String isCheap){
+        int i = 0;
+        return "success";
+    }
+
     public static void main(String[] args) {
 //        System.out.println(null + "qewwrqr");
         String str = "abc11123";
         System.out.println(str.endsWith("23"));
         System.out.println(str.endsWith("3"));
     }
-    
+
 }

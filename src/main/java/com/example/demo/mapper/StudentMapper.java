@@ -1,8 +1,7 @@
 package com.example.demo.mapper;
 
-import com.example.demo.bean.Student;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.springframework.stereotype.Component;
+import com.example.demo.bean.Student;
 
 import javax.inject.Named;
 import java.util.List;
@@ -19,5 +18,7 @@ import java.util.List;
 public interface StudentMapper extends BaseMapper<Student> {
 
     List<Student> findAllUser();
+
+    Student findOtherUser(String id);
 
 }

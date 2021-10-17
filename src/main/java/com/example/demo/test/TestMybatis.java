@@ -13,10 +13,7 @@ import org.apache.ibatis.transaction.TransactionFactory;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 
 import javax.sql.DataSource;
-import java.net.URL;
-import java.util.List;
 import java.util.Properties;
-
 
 /**
  * 应用模块名称
@@ -42,10 +39,18 @@ public class TestMybatis {
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(configuration);
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
             StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
-            List<Student> allUser = mapper.findAllUser();
-            allUser.forEach(user -> System.out.println(JSON.toJSONString(user)));
+            Student student = mapper.findOtherUser("1");
+            System.out.println(JSON.toJSONString(student));
+//            allUser.forEach(user -> System.out.println(JSON.toJSONString(user)));
         }
 
+//        LfMonDbopr lfMonDbopr = new LfMonDbopr();
+//        System.out.println(lfMonDbopr.toString());
+
     }
-    
+
+    public int test() {
+        return 1;
+    }
+
 }
