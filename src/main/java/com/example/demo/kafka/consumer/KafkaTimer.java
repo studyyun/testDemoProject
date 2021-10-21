@@ -6,10 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.config.KafkaListenerEndpointRegistry;
 import org.springframework.kafka.core.ConsumerFactory;
+import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Component;
 
-@EnableScheduling
+//@EnableScheduling
 @Component
 public class KafkaTimer {
 
@@ -30,8 +31,15 @@ public class KafkaTimer {
     }*/
 
     @KafkaListener(groupId = "timingConsumer", topics = {"topic1","topic2"})
-    public void onMessage(ConsumerRecord consumerRecord) {
+    public void onMessage(ConsumerRecord consumerRecord, Acknowledgment ack) {
         System.out.println("接收到消息：" + consumerRecord.value().toString());
+        ack.acknowledge();
+    }
+
+    @KafkaListener(groupId = "timingConsumer", topics = {"topic2"})
+    public void onMessage2(ConsumerRecord consumerRecord, Acknowledgment ack) {
+        System.out.println("接收到消息：" + consumerRecord.value().toString());
+        ack.acknowledge();
     }
 
     /*@Scheduled(cron = "0 59 11 * * ? ")

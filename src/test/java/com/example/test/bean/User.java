@@ -2,6 +2,7 @@ package com.example.test.bean;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -21,7 +22,17 @@ public class User {
 
     private List<Students> studentsList;
     
+    private int[] intss = new int[]{0, 0, 0, 0};;
+    
     private String message;
+
+    public int[] getIntss() {
+        return intss;
+    }
+
+    public void setIntss(int[] intss) {
+        this.intss = intss;
+    }
 
     public String getMessage() {
         return message;
@@ -51,8 +62,24 @@ public class User {
         this.name = name;
     }
 
+    public User(String name, Integer age) {
+        this.name = name;
+        this.age = age;
+    }
+
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", students=" + students +
+                ", studentsList=" + studentsList +
+                ", intss=" + Arrays.toString(intss) +
+                '}';
     }
 
     public void setName(String name) {

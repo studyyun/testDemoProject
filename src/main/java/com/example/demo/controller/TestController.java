@@ -4,11 +4,13 @@ import com.alibaba.fastjson.JSONObject;
 import com.example.demo.bean.MoPushRequestData;
 import com.example.demo.bean.MoPushResult;
 import com.example.demo.bean.SendResultVo;
+import com.example.demo.service.impl.TestService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -42,6 +44,12 @@ public class TestController {
      */
     @Value("${oauth2.logout_uri2:https://sso.ubrmbqa.com/auth/realms/ubrmbtest/protocol/openid-connect/logout}")
     private String logoutUri;
+    
+    private final TestService testService;
+
+    public TestController(TestService testService) {
+        this.testService = testService;
+    }
 
     @RequestMapping("/")
     public String testhello(HttpServletRequest request,HttpServletResponse response) throws IOException {
@@ -73,7 +81,7 @@ public class TestController {
 //        System.out.println("333");
         return "redirect:/index.html";
     }
-
+    
     @PostMapping("/test/moPush")
     @ResponseBody
     public MoPushResult testMoPush(@RequestBody MoPushRequestData requestData){
@@ -86,7 +94,7 @@ public class TestController {
         }
 
     }
-
+    
     @GetMapping("/testSpeed")
     @ResponseBody
     public SendResultVo testSpeed(){
@@ -106,17 +114,23 @@ public class TestController {
         return new SendResultVo();
     }
 
-    @GetMapping("/pay")
-    public String pay(@RequestParam String phone, @RequestParam String money, @RequestParam String isCheap){
-        int i = 0;
-        return "success";
-    }
+    @GetMapping("/testDiff")
+    public Boolean testDiff() {
 
+        try {
+            testService.testDiff();
+            return true;
+        } catch (Exception e) {
+            log.error("出错啦", e);
+            return false;
+        }
+    }
+    
     public static void main(String[] args) {
 //        System.out.println(null + "qewwrqr");
         String str = "abc11123";
         System.out.println(str.endsWith("23"));
         System.out.println(str.endsWith("3"));
     }
-
+    
 }

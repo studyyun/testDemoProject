@@ -35,7 +35,8 @@ public class KafkaConfig{
     public ProducerFactory<?, ?> kafkaProducerFactory(
             ObjectProvider<DefaultKafkaProducerFactoryCustomizer> customizers) {
         Map<String, Object> map = this.properties.buildProducerProperties();
-        map.put(ProducerConfig.INTERCEPTOR_CLASSES_CONFIG, CustomizeInterceptors.class.getName() + "," + CustomizeInterceptorsTwo.class.getName());
+        //生产者拦截器
+//        map.put(ProducerConfig.INTERCEPTOR_CLASSES_CONFIG, CustomizeInterceptors.class.getName() + "," + CustomizeInterceptorsTwo.class.getName());
         DefaultKafkaProducerFactory<?, ?> factory = new DefaultKafkaProducerFactory<>(
                 map);
         String transactionIdPrefix = this.properties.getProducer().getTransactionIdPrefix();
@@ -52,7 +53,7 @@ public class KafkaConfig{
             ObjectProvider<DefaultKafkaConsumerFactoryCustomizer> customizers) {
         Map<String, Object> map = this.properties.buildConsumerProperties();
         map.put(ConsumerConfig.INTERCEPTOR_CLASSES_CONFIG, ConsumerCustomInterceptors.class.getName());
-        map.put(ConsumerConfig.FETCH_MAX_BYTES_CONFIG, 1);
+//        map.put(ConsumerConfig.FETCH_MAX_BYTES_CONFIG, 1);
         DefaultKafkaConsumerFactory<Object, Object> factory = new DefaultKafkaConsumerFactory<>(
                 map);
         customizers.orderedStream().forEach((customizer) -> customizer.customize(factory));

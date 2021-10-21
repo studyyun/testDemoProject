@@ -1,11 +1,20 @@
 package com.example.demo.test;
 
-import org.springframework.scheduling.annotation.Scheduled;
+import cn.hutool.core.thread.NamedThreadFactory;
+import com.example.demo.service.IStudentService;
+import com.sun.org.apache.bcel.internal.generic.NEW;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.SchedulingConfigurer;
+import org.springframework.scheduling.config.ScheduledTaskRegistrar;
+import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Date;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -15,26 +24,75 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @date 2021-03-30  14:45
  */
 @Component
-public class TestScheduled {
+@Slf4j
+@EnableScheduling
+public class TestScheduled implements CommandLineRunner {
+
+    @Autowired
+    private IStudentService studentService;
 
     private AtomicInteger number = new AtomicInteger();
+    
+    private static boolean hasDeal;
 
-    /*@Scheduled(initialDelay = 100, fixedDelayString = "${mailgate.account.cache.time}000")
-    public void test() {
-        LocalTime start = LocalTime.now();
-        //前面和末尾几个字符串是用来改变打印的颜色的
-        System.out.println("\033[31;4m" + Thread.currentThread() + " start " + number.incrementAndGet()
-                + " @ " + start + "\033[0m");
-        try {
-            Thread.sleep(ThreadLocalRandom.current().nextInt(15) * 1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    @Value("${montnets.dxkf.data.sync.time:7:00}")
+    private String time;
+    
+    private ScheduledThreadPoolExecutor scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(2, 
+                                                    new NamedThreadFactory("业务短信发送线程",false));
 
-        LocalTime end = LocalTime.now();
+    @Override
+    public void run(String... args) throws Exception {
+        /*log.error("eqweqweqweqweqwe");
+        TestThread testThread = new TestThread();
+        testThread.run();
+        TestThread2 testThread2 = new TestThread2();
+        testThread2.run();
+        TestThread3 testThread3 = new TestThread3();
+        testThread3.run();
+//        scheduledThreadPoolExecutor.scheduleWithFixedDelay(testThread,2,5,TimeUnit.SECONDS);
+        *//*scheduledThreadPoolExecutor.scheduleAtFixedRate(testThread,2,5,TimeUnit.SECONDS);
+        scheduledThreadPoolExecutor.scheduleAtFixedRate(testThread2,2,5,TimeUnit.SECONDS);
+        scheduledThreadPoolExecutor.scheduleAtFixedRate(testThread3,2,5,TimeUnit.SECONDS);*//*
+        System.out.println(time);*/
+    }
 
-        System.out.println(Thread.currentThread() + " end " + number.get() + " @ " +
-                end + ", seconds cost " + (ChronoUnit.SECONDS.between(start, end)));
-
-    }*/
+    
 }
+
+class TestThread extends Thread{
+    
+    @Override
+    public void run() {
+        exec();
+    }
+
+    private void exec() {
+        System.out.println(Thread.currentThread().getName() + "执行啦111：" + new Date());
+    }
+}
+
+class TestThread2 extends Thread{
+
+    @Override
+    public void run() {
+        exec();
+    }
+
+    private void exec() {
+        System.out.println(Thread.currentThread().getName() + "执行啦222：" + new Date());
+    }
+}
+
+class TestThread3 extends Thread{
+
+    @Override
+    public void run() {
+        exec();
+    }
+
+    private void exec() {
+        System.out.println(Thread.currentThread().getName() + "执行啦333：" + new Date());
+    }
+}
+

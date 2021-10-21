@@ -78,10 +78,10 @@ public class SysuserController {
         this.sysuserService = sysuserService;
     }*/
     
-    @Autowired
+    /*@Autowired
     public void setTestService(@Qualifier("public") TestService test){
         
-    }
+    }*/
 
     @PostMapping("/getAllSysuser")
     public List<Sysuser> getAllStudent() {

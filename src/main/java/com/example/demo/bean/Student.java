@@ -1,31 +1,37 @@
 package com.example.demo.bean;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.baomidou.mybatisplus.annotation.TableId;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+
 /**
  * <p>
- *
+ * 
  * </p>
  *
  * @author astupidcoder
  * @since 2021-03-22
  */
-//@Data
-/*@Getter
-@Setter
-//@RequiredArgsConstructor
+@Data
 @EqualsAndHashCode(callSuper = true)
-@Accessors(chain = true)*/
-public class Student {
+@TableName("student")
+@Accessors(chain = true)
+public class Student extends Model {
 
     private static final long serialVersionUID = 1L;
 
-    //    @TableId(value = "id", type = IdType.AUTO)
-    public Integer id;
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
 
-    public String name;
+    private String name;
 
-    public String address;
+    private String address;
 
-    public Integer age;
+    private Integer age;
 
 
 }

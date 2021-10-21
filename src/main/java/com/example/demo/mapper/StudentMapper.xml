@@ -17,4 +17,9 @@
        select * from student where id = #{id}
     </select>
 
+    <!-- 查找用户信息 -->
+    <select id="findUserById" resultType="com.example.demo.bean.Student">
+       select * from student where id = #{id}
+    </select>
+
 </mapper>

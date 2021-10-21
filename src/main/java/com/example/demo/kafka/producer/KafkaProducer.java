@@ -24,7 +24,7 @@ public class KafkaProducer {
     // 发送消息
     @GetMapping("/kafka/normal/{message}")
     public void sendMessage1(@PathVariable("message") String topic) {
-        System.out.println(new Date());
+//        System.out.println(new Date());
         /*for (int i = 0; i < 100; i++) {
             kafkaTemplate.send("topic1", i+"");
         }*/
@@ -32,7 +32,7 @@ public class KafkaProducer {
         try {
             ListenableFuture<SendResult<String, Object>> future = kafkaTemplate.send(topic, "你好不好，我不好，哈喽baby");
             future.addCallback((result)->{
-                System.out.println("发送成功" + result.toString());
+//                System.out.println("发送成功" + result.toString());
             }, (ex) ->{
                 System.out.println("发送失败");
                 ex.printStackTrace();

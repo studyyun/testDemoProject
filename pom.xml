@@ -133,8 +133,16 @@
         <dependency>
             <groupId>com.demo</groupId>
             <artifactId>starter</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0</version>
         </dependency>
+
+        <!--<dependency>
+            <groupId>com.demo</groupId>
+            <artifactId>starter</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/starter-1.0-SNAPSHOT.jar</systemPath>
+        </dependency>-->
 
         <dependency>
             <groupId>com.google.guava</groupId>
@@ -172,6 +180,20 @@
             <version>5.0.1</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.9.2</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.9.2</version>
+        </dependency>
+
+
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus</artifactId>
@@ -184,6 +206,14 @@
         </dependency>
     </dependencies>
 
+    <repositories>
+        <repository>
+            <id>releases</id>
+            <name>User Project Release</name>
+            <url>http://127.0.0.1:8081/repository/maven-releases</url>
+        </repository>
+    </repositories>
+    
     <build>
         <plugins>
             <plugin>

@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.demo.bean.LfMonDbopr;
 import com.example.demo.bean.Student;
 import com.example.demo.service.ILfMonDboprService;
@@ -63,6 +65,12 @@ public class StudentController {
         return "";
     }
 
-
+    @GetMapping("/pageList")
+    public List<Student> pageList() {
+        IPage<Student> iPage = new Page<>();
+        iPage.setCurrent(1).setSize(10);
+        studentService.page(iPage);
+        return null;
+    }
 
 }
