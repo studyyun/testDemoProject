@@ -1,3 +1,4 @@
+/*
 package com.example.test;
 
 import org.hyperic.sigar.FileSystem;
@@ -5,12 +6,14 @@ import org.hyperic.sigar.FileSystemUsage;
 import org.hyperic.sigar.Sigar;
 import org.hyperic.sigar.SigarException;
 
+*/
 /**
  * 应用模块名称
  *
  * @author zhousy
  * @date 2021-06-24  17:16
- */
+ *//*
+
 public class TestSigar {
     Sigar sigar = new Sigar();
     private static int[] diskList = null;
@@ -61,20 +64,23 @@ public class TestSigar {
             return diskInfo;
         }
     }
-    
+
     public static void main(String[] args) {
         long[] hostDiskFree = new TestSigar().getHostDiskFree();
         for (long l : hostDiskFree) {
             System.out.println(l);
         }
-        
-        /*FileSystem[] fslist = new FileSystem[29];
+
+        */
+/*FileSystem[] fslist = new FileSystem[29];
         int[] diskList = new int[fslist.length];
 
         for (int i = 0; i <= fslist.length; i++) {
             System.out.println(diskList[i]);
-        }*/
-        
+        }*//*
+
+
     }
-    
+
 }
+*/

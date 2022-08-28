@@ -47,10 +47,10 @@ public class TestLock {
         Lock lock = new ReentrantLock();
         try {
 //            new TestLock().test();
-            
+
             lock.lock();
             Condition condition = lock.newCondition();
-            new Thread(()->{
+            new Thread(() -> {
                 try {
                     lock.lock();
                     System.out.println(Thread.currentThread().getName());

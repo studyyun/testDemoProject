@@ -3,6 +3,9 @@ package com.example.test;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONException;
 
+import java.io.File;
+import java.io.FileOutputStream;
+
 /**
  * 应用模块名称
  *
@@ -13,20 +16,23 @@ import org.json.JSONException;
 public class TestFile {
 
     public static void main(String[] args) throws JSONException {
-        /*File file = new File("filetest.txt");
-        
-        try (FileOutputStream fileOutputStream = new FileOutputStream(file)) { 
-          fileOutputStream.write("hello\r\nhi".getBytes());
+        File file = new File("filetest.txt");
+
+        try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
+            for (int i = 0; i < 10_0000; i++) {
+                fileOutputStream.write(("set k"+ i + " v" + i + "\r\n").getBytes());
+
+            }
         } catch (Exception e){
             System.out.println(e);
-        }*/
+        }
         
         /*JSONObject jsonObject = null;
         String aaa = jsonObject.getString("aaa");
         System.out.println(aaa);*/
         
-        String b = "dasda";
-        System.out.println(b.substring(1,1));
+//        String b = "dasda";
+//        System.out.println(b.substring(1,1));
 //        test();
     }
     
