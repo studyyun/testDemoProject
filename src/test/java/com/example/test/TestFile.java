@@ -18,6 +18,7 @@ public class TestFile {
     public static void main(String[] args) throws JSONException {
         File file = new File("filetest.txt");
 
+        // cat filetest.txt | redis-cli -h 127.0.0.1 -p 6379 -a "aliyun" -n 0 --pipe
         try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
             for (int i = 0; i < 100_0000; i++) {
                 /*String k = 13500000000L + i +"";
