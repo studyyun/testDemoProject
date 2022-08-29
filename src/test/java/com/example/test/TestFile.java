@@ -19,23 +19,26 @@ public class TestFile {
         File file = new File("filetest.txt");
 
         try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
-            for (int i = 0; i < 10_0000; i++) {
-                fileOutputStream.write(("set k"+ i + " v" + i + "\r\n").getBytes());
+            for (int i = 0; i < 100_0000; i++) {
+                /*String k = 13500000000L + i +"";
+                fileOutputStream.write(("set "+ k + " 1" + "\r\n").getBytes());*/
+                String k = 13500000000L + i +"";
+                fileOutputStream.write(("sadd phone " + k + "\r\n").getBytes());
 
             }
         } catch (Exception e){
             System.out.println(e);
         }
-        
+
         /*JSONObject jsonObject = null;
         String aaa = jsonObject.getString("aaa");
         System.out.println(aaa);*/
-        
+
 //        String b = "dasda";
 //        System.out.println(b.substring(1,1));
 //        test();
     }
-    
+
     public static void test(){
         Throwable var3 = null;
 
@@ -57,5 +60,5 @@ public class TestFile {
             }
         }
     }
-    
+
 }
