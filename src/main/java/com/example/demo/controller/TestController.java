@@ -125,7 +125,55 @@ public class TestController {
             return false;
         }
     }
-    
+
+    @GetMapping("/testProduce")
+    public SendResultVo testProduce() {
+
+        try {
+            testService.testProduce();
+            return null;
+        } catch (Exception e) {
+            log.error("出错啦", e);
+            return null;
+        }
+    }
+
+    @GetMapping("/testParent")
+    public SendResultVo testParent() {
+
+        try {
+            testService.testParent();
+            return null;
+        } catch (Exception e) {
+            log.error("出错啦", e);
+            return null;
+        }
+    }
+
+    @GetMapping("/testWrapper")
+    public SendResultVo testWrapper() {
+
+        try {
+            testService.testWrapper();
+            return null;
+        } catch (Exception e) {
+            log.error("出错啦", e);
+            return null;
+        }
+    }
+
+    @GetMapping("/testTime")
+    public SendResultVo testTime() {
+
+        try {
+            testService.testTime();
+            return new SendResultVo();
+        } catch (Exception e) {
+            log.error("出错啦", e);
+            return new SendResultVo();
+        }
+    }
+
     public static void main(String[] args) {
 //        System.out.println(null + "qewwrqr");
         String str = "abc11123";

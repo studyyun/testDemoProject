@@ -1,5 +1,7 @@
 package com.example.test;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -14,6 +16,17 @@ import java.util.concurrent.TimeUnit;
 public class TestThreadLocal {
 
     private static ThreadLocal<String> threadLocal;
+
+    private static final ThreadLocal<DateFormat> df = ThreadLocal.withInitial(() -> new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss"));
+
+    private static final ThreadLocal<DateFormat> ssdf = new ThreadLocal<DateFormat>(){
+
+        @Override
+        protected DateFormat initialValue() {
+            return new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        }
+
+    };
 
     private static ThreadPoolExecutor executor = new ThreadPoolExecutor(5, 10, 0,
             TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>(1024),

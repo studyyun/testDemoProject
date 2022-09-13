@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -90,9 +91,10 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
 //        int i = 1/0;
     }
 
-    @Transactional(rollbackFor = Exception.class)
-    public void add() throws Exception {
-        Student student = null;
+    @Override
+    @Transactional(rollbackFor = Exception.class, propagation = Propagation.NESTED)
+    public void add(){
+        Student student = new Student().setId(1).setName("zsy");
         studentMapper.updateById(student);
         logger.info("执行到test2");
 
@@ -119,7 +121,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         Sysuser sysuser = new Sysuser().setId(1).setUserName("111");
         sysuserMapper.updateById(sysuser);
 //            int i = 1/0;
-        throw new RuntimeException("222");
+//        throw new RuntimeException("222");
         /*int[] ints = new int[2];
         ints[3] = 2;*/
         /*} catch (Exception e) {

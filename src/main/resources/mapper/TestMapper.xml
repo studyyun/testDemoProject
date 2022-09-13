@@ -2,6 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.demo.mapper.TestMapper">
+    <update id="testParent">
+        UPDATE sysuser
+        SET userName = #{child.userName} ,orderNo = #{child.orderNo}
+        WHERE id = #{child.id}
+    </update>
 
 
     <select id="getStudentName" resultType="com.example.demo.bean.Sysuser">
@@ -9,5 +14,22 @@
         SELECT NAME AS userName
         FROM student
         
+    </select>
+    
+
+    <select id="runProcFeeZszq" statementType="CALLABLE" databaseId="mysql">
+        CALL PROC_FEEZSZQ(2)
+    </select>
+    <select id="getId" resultType="java.lang.Integer">
+        SELECT ID FROM student WHERE ID=1
+    </select>
+    
+    <select id="testQueryTime" resultType="com.example.demo.bean.SanwInfo" fetchSize="3000">
+        SELECT CAPITAL_ACCOUNT,MOBILE,INVEST_DURATION,DISLIKE_TYPE,EVAL_LEVEL 
+        FROM TM_CUST_RISK_INFO    
+    </select>
+    <select id="dynamicSelectLargeData2" resultType="com.example.demo.bean.SanwInfo" resultSetType="FORWARD_ONLY" fetchSize="100">
+        SELECT CAPITAL_ACCOUNT,MOBILE,INVEST_DURATION,DISLIKE_TYPE,EVAL_LEVEL 
+        FROM TM_CUST_RISK_INFO
     </select>
 </mapper>

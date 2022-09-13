@@ -17,5 +17,6 @@ import java.util.List;
 public interface ILfMonDboprService extends IService<LfMonDbopr> {
     
     int updateRealTime(int proceNode) throws Exception;
-    
+
+    void test();
 }

@@ -40,4 +40,10 @@ public class LfMonDboprServiceImpl extends ServiceImpl<LfMonDboprMapper, LfMonDb
         }
 
     }
+
+    @Override
+    public void test() {
+        int i = lfMonDboprMapper.selectVersion();
+        int i1 = 0;
+    }
 }

@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
-@MapperScan("com.example.demo.mapper")
+@MapperScan(basePackages = "com.example.demo.mapper")
 @EnableScheduling
 //@EnableDemoConfiguration
 public class DemoApplication {

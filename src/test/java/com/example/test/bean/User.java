@@ -11,7 +11,7 @@ import java.util.List;
  * @author zhousy
  * @date 2021-05-17  17:16
  */
-public class User {
+public class User implements Cloneable{
     
     @JSONField(name = "exno")
     private String name;
@@ -92,5 +92,10 @@ public class User {
 
     public void setStudentsList(List<Students> studentsList) {
         this.studentsList = studentsList;
+    }
+
+    @Override
+    protected User clone() throws CloneNotSupportedException {
+        return (User)super.clone();
     }
 }

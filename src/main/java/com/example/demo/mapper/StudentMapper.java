@@ -25,4 +25,5 @@ public interface StudentMapper extends BaseMapper<Student> {
     
     Student findUserById(@Param("id") String id);
 
+    List<Student> selectAllIds();
 }

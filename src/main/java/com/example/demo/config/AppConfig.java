@@ -29,7 +29,7 @@ public class AppConfig {
         return new DateBean(environment.getProperty("server.port"));
     }
 
-    @Bean
+    /*@Bean
     public MybatisSqlSessionFactoryBean sqlSessionFactory(DataSource dataSource) throws Exception {
         // TODO 使用 MybatisSqlSessionFactoryBean 而不是 SqlSessionFactoryBean
         MybatisSqlSessionFactoryBean factory = new MybatisSqlSessionFactoryBean();
@@ -37,5 +37,5 @@ public class AppConfig {
         factory.setVfs(SpringBootVFS.class);
 //        return factory.getObject();
         return factory;
-    }
+    }*/
 }

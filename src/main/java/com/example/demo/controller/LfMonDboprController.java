@@ -52,4 +52,16 @@ public class LfMonDboprController {
         }
     }
 
+    @GetMapping("/test")
+    public String test() {
+        try {
+//            LfMonDbopr lfMonDbopr = new LfMonDbopr().setId(19706).setProceNode(1002).setCreateTime(new Timestamp(System.currentTimeMillis()));
+            lfMonDboprService.test();
+            logger.info("1002执行了啦啦啦啦啦啦啦啦");
+            return "成功";
+        } catch (Exception e) {
+            logger.error("报错了啊啊啊啊啊啊啊啊", e);
+            return "失败";
+        }
+    }
 }

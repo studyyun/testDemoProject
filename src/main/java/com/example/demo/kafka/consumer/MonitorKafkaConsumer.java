@@ -1,3 +1,4 @@
+/*
 package com.example.demo.kafka.consumer;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -6,12 +7,14 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+*/
 /**
  * 应用模块名称
  *
  * @author zhousy
  * @date 2021-10-20  11:01
- */
+ *//*
+
 @Component
 public class MonitorKafkaConsumer {
 
@@ -22,3 +25,4 @@ public class MonitorKafkaConsumer {
     }
     
 }
+*/

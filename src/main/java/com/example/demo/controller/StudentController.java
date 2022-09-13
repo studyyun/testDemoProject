@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.demo.bean.LfMonDbopr;
@@ -33,10 +34,10 @@ import java.util.List;
 public class StudentController {
 
     private static final Logger logger = LoggerFactory.getLogger(StudentController.class);
-    
+
     @Autowired(required = false)
     private IStudentService studentService;
-    
+
     private ILfMonDboprService lfMonDboprService;
 
     public StudentController(ILfMonDboprService lfMonDboprService) {
@@ -46,6 +47,8 @@ public class StudentController {
 
     @PostMapping("/getStudent")
     public Student getStudent(){
+        LambdaQueryWrapper<Student> queryWrapper = new LambdaQueryWrapper<Student>().eq(Student::getId, 1).eq(Student::getId, 2);
+        List<Student> list = studentService.list(queryWrapper);
         return studentService.getById(1);
     }
 
@@ -58,7 +61,8 @@ public class StudentController {
     public String testTransactional(){
 
         try {
-            studentService.testTransactional();
+//            studentService.testTransactional();
+            studentService.add();
         } catch (Exception e) {
             logger.error("控制层报错",e);
         }

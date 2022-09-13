@@ -26,7 +26,7 @@ public class RedisController {
     public String addStringKV(@PathVariable String k,
                               @PathVariable String v) {
 
-        for (int i = 0; i < 100_000; i++) {
+        for (int i = 0; i < 1; i++) {
             // 使用StringRedisTemplate对象
             stringRedisTemplate.opsForValue().set(k + i, v + i);
         }
