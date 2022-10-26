@@ -13,7 +13,7 @@ public class CuratorConfig {
     public CuratorFramework curatorFramework() {
         CuratorFramework curatorFramework = CuratorFrameworkFactory
                 .builder()
-                .connectString("localhost:2181")
+                .connectString("120.24.162.16:2181")
                 .sessionTimeoutMs(15000)
                 .connectionTimeoutMs(20000)
                 .retryPolicy(new ExponentialBackoffRetry(1000, 10))

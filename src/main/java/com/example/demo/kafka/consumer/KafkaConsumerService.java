@@ -1,4 +1,3 @@
-/*
 package com.example.demo.kafka.consumer;
 
 import org.apache.kafka.clients.consumer.Consumer;
@@ -30,11 +29,11 @@ import java.util.concurrent.TimeUnit;
 public class KafkaConsumerService {
 
     private final ConsumerFactory consumerFactory;
-    
+
     private final KafkaProperties properties;
-    
-    private ThreadPoolExecutor threadPool = 
-            new ThreadPoolExecutor(6, 8, 0L, TimeUnit.MILLISECONDS, 
+
+    private ThreadPoolExecutor threadPool =
+            new ThreadPoolExecutor(6, 8, 0L, TimeUnit.MILLISECONDS,
                     new LinkedBlockingQueue<>(1024), new ThreadPoolExecutor.CallerRunsPolicy());
 
     public KafkaConsumerService(ConsumerFactory consumerFactory, KafkaProperties properties) {
@@ -64,7 +63,6 @@ public class KafkaConsumerService {
         factory.getContainerProperties().setAckMode(ContainerProperties.AckMode.MANUAL_IMMEDIATE);
 //        factory.getContainerProperties().setSyncCommits(false);
         factory.setBatchListener(true);
-        */
 /*containerFactory.setRecordFilterStrategy(consumerRecord ->{
             if (Integer.valueOf(consumerRecord.value().toString()) % 2 == 0) {
                 System.out.println("被丢弃" + consumerRecord.value().toString());
@@ -73,16 +71,15 @@ public class KafkaConsumerService {
                 System.out.println("被保留" + consumerRecord.value().toString());
                 return false;
             }
-        });*//*
-
-        */
+        });*/
 /*configurer.configure(factory, kafkaConsumerFactory
                 .getIfAvailable(() -> new DefaultKafkaConsumerFactory<>(this.properties.buildConsumerProperties())));*//*
-
+         */
         return factory;
+
     }
-    
-    */
+
+
 /*@Bean
     public ConcurrentKafkaListenerContainerFactory filterContainerFactory() {
         ConcurrentKafkaListenerContainerFactory containerFactory = new ConcurrentKafkaListenerContainerFactory();
@@ -105,12 +102,11 @@ public class KafkaConsumerService {
         poolTaskExecutor.initialize();
         containerFactory.getContainerProperties().setConsumerTaskExecutor(poolTaskExecutor);
         return containerFactory;
-    }*//*
+    }*/
 
 
     @KafkaListener(groupId = "timingConsumer",topics = {"topic3","topic2"},containerFactory = "filterContainerFactory")
     public void onMessage(List<ConsumerRecord> recordList, Acknowledgment ack, Consumer consumer) {
-        */
 /*System.out.println("简单消费" + record.toString());
         threadPool.execute(()->{
             System.out.println(Thread.currentThread().getName() + "消费消费");
@@ -118,7 +114,7 @@ public class KafkaConsumerService {
                 System.out.println("偶数提交，offset=" + record.offset());
                 ack.acknowledge();
             }
-        });*//*
+        });*/
 
 
         System.out.println("批量消费" + recordList.size());
@@ -133,7 +129,6 @@ public class KafkaConsumerService {
     }
     
     
-    */
 /*@KafkaListener(id = "consumer111", groupId = "felix-group", topicPartitions = {
             @TopicPartition(topic = "topic1", partitions = { "0" }),
 //            @TopicPartition(topic = "topic2", partitions = "0", partitionOffsets = @PartitionOffset(partition = "1", initialOffset = "8"))
@@ -145,7 +140,7 @@ public class KafkaConsumerService {
 
 
 
-    */
+     */
 /*@KafkaListener(topics = {"topic1","topic2"}, errorHandler = "consumerAwareListenerErrorHandler")
     public void onMessage3(List<ConsumerRecord<?,?>> recordList) throws Exception{
         System.out.println(new Date() + "批量消费" + recordList.size());
@@ -153,7 +148,7 @@ public class KafkaConsumerService {
     }*//*
 
 
-    */
+     */
 /*@KafkaListener(topics = {"topic1"}, errorHandler = "consumerAwareListenerErrorHandler")
     @SendTo("topic2")
     public String onMessage4(ConsumerRecord<?, ?> record) {
@@ -169,3 +164,4 @@ public class KafkaConsumerService {
 
 }
 */
+}
