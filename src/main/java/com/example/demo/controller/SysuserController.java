@@ -168,7 +168,7 @@ public class SysuserController {
 
     public static void main(String[] args) {
         Config config = new Config();
-        config.useSingleServer().setAddress("redis://192.168.3.176:6379").setPassword("123456");
+        config.useSingleServer().setAddress("redis://120.24.162.16:6379").setPassword("aliyun");
         RedissonClient redissonClient = Redisson.create(config);
         RLock rLock = redissonClient.getLock("lock1");
         rLock.lock();

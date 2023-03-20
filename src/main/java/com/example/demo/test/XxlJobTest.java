@@ -18,5 +18,12 @@ public class XxlJobTest {
         log.info("-------hello world------" + param);
         return ReturnT.SUCCESS;
     }
+
+    @XxlJob("xxlJobTest2")
+    public ReturnT<String> xxlJobTest2(String date) {
+        String param = XxlJobHelper.getJobParam();
+        log.info("-------hello world2222------" + param);
+        return ReturnT.SUCCESS;
+    }
 }
 
